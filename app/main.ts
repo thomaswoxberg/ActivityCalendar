@@ -1,5 +1,6 @@
 import {bootstrap}    from 'angular2/platform/browser';
 import 'rxjs/Rx';
-import {ActivityCalendarComponent} from './activitycalendar.component';
+import {ROUTER_PROVIDERS} from 'angular2/router';
+import {ActivityCalendarMainComponent} from './activitycalendar.main.component';
 
-bootstrap(ActivityCalendarComponent);
+bootstrap(ActivityCalendarMainComponent,[ROUTER_PROVIDERS]);

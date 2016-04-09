@@ -1,0 +1,6 @@
+.event {
+ background: -webkit-linear-gradient(#e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
+ background: -o-linear-gradient(#e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
+ background: linear-gradient(#e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
+ color: black; 
+}

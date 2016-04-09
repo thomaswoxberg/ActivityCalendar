@@ -1,8 +1,8 @@
 <html>
   <head>
+     <base href="" />
     <title>Dynamics Crm activity calender</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <link rel="stylesheet" href="styles.css">
 
     <!-- 1. Load libraries -->
     <!-- IE required polyfills, in this exact order -->
@@ -15,12 +15,14 @@
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
     <script src="node_modules/angular2/bundles/http.dev.js"></script>
+    <script src="node_modules/angular2/bundles/router.dev.js"></script>
     
     <!-- Full calendar and dependencies -->
     <script src="node_modules/moment/min/moment.min.js"></script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/fullcalendar/dist/fullcalendar.min.js"></script>
     <link rel="stylesheet" href="node_modules/fullcalendar/dist/fullcalendar.min.css">
+        <link rel="stylesheet" href="app/activitycalendar.component.css">
 
     <!-- 2. Configure SystemJS -->
     <script>
