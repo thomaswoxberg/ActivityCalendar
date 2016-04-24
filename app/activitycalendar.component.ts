@@ -51,20 +51,23 @@ export class ActivityCalendarComponent implements OnInit
                 defaultDate: new Date().toISOString(),
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
-                eventMouseOver: function(calEvent, jsEvent, view) {
-                    var eventDiv = calendarDiv.find("." + calEvent.id); 
-                        var eventOffset = eventDiv.offset(); 
-                        var eventWidth = eventDiv.width(); 
-                        var left = eventOffset.left + eventWidth + 10; 
-                        calendarDiv.append('<div id="' + calEvent.id + '" style="position: absolute; z-index: 1000; top: ' + eventOffset.top + 'px; left: ' + left + 'px;">' + 'some text here' + '</div>');
-                }, 
-                eventClick: function (calEvent, jsEvent, view) {
-                        var eventDiv = calendarDiv.find("." + calEvent.id); 
-                        var eventOffset = eventDiv.offset(); 
-                        var eventWidth = eventDiv.width(); 
-                        var left = eventOffset.left + eventWidth + 10; 
-                        calendarDiv.append('<div id="' + calEvent.id + '" style="position: absolute; z-index: 1000; top: ' + eventOffset.top + 'px; left: ' + left + 'px;">' + 'some text here' + '</div>');                         
-                }, 
+                eventRender: function(event, element) {
+                    
+                    element.qtip({
+                        show: 'click',
+                        hide: 'click', 
+                        content: {
+                            text: event.title
+                        }, 
+                        style: {                           
+                            classes: 'qtip-bootstrap' 
+                        }, 
+                        position: {
+                            at: 'top right'
+                        }
+                    });
+                     
+                },               
                 events: calendarActivities
             }); 
            
