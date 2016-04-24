@@ -38,20 +38,34 @@ export class ActivityCalendarComponent implements OnInit
              
              this.activities.map(a => calendarActivities.push(
                  {  
+                    "id": a.activityid, 
                     "start": a.scheduledstart, 
                     "end": a.scheduledend, 
                     "title": "\n" + a.regardingName + "\n" +  a.subject, 
-                    "className": "event"
+                    "className": ["event", a.activityid]
                 })); 
-          
-                jQuery(this._elementRef.nativeElement).find('#calendar').fullCalendar({
-                    defaultDate: new Date().toISOString(),
-                    editable: true,
-                    eventLimit: true, // allow "more" link when too many events
-                    eventMouseOver: function(event, jsEvent, view) {
-                        var t = 0; 
-                    }, 
-                    events: calendarActivities
+            
+            var calendarDiv = jQuery(this._elementRef.nativeElement).find('#calendar'); 
+            
+            jQuery(this._elementRef.nativeElement).find('#calendar').fullCalendar({
+                defaultDate: new Date().toISOString(),
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                eventMouseOver: function(calEvent, jsEvent, view) {
+                    var eventDiv = calendarDiv.find("." + calEvent.id); 
+                        var eventOffset = eventDiv.offset(); 
+                        var eventWidth = eventDiv.width(); 
+                        var left = eventOffset.left + eventWidth + 10; 
+                        calendarDiv.append('<div id="' + calEvent.id + '" style="position: absolute; z-index: 1000; top: ' + eventOffset.top + 'px; left: ' + left + 'px;">' + 'some text here' + '</div>');
+                }, 
+                eventClick: function (calEvent, jsEvent, view) {
+                        var eventDiv = calendarDiv.find("." + calEvent.id); 
+                        var eventOffset = eventDiv.offset(); 
+                        var eventWidth = eventDiv.width(); 
+                        var left = eventOffset.left + eventWidth + 10; 
+                        calendarDiv.append('<div id="' + calEvent.id + '" style="position: absolute; z-index: 1000; top: ' + eventOffset.top + 'px; left: ' + left + 'px;">' + 'some text here' + '</div>');                         
+                }, 
+                events: calendarActivities
             }); 
            
         });      
