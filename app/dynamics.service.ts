@@ -37,8 +37,7 @@ export class ActivityService {
         return this.http.get(requestUrl)
         .map((res: Response) => {                               
             return <Activity[]>res.json().value })            
-        .flatMap((activities: Activity[]) => {    
-            var requestUrl = this._dynamicsUrl + "accounts"; 
+        .flatMap((activities: Activity[]) => {                
             return Observable.forkJoin(
                 activities.map(a =>  this.getRegarding(a))
             );        

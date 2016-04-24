@@ -48,6 +48,9 @@ export class ActivityCalendarComponent implements OnInit
                     defaultDate: new Date().toISOString(),
                     editable: true,
                     eventLimit: true, // allow "more" link when too many events
+                    eventMouseOver: function(event, jsEvent, view) {
+                        var t = 0; 
+                    }, 
                     events: calendarActivities
             }); 
            

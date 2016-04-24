@@ -11,7 +11,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "angular2": "^2.0.0-beta.14",
+    "angular2": "^2.0.0-beta.15",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.35.0",
     "fullcalendar": "^2.6.1",
@@ -19,8 +19,8 @@
     "moment": "^2.12.0",
     "reflect-metadata": "0.1.2",
     "rxjs": "^5.0.0-beta.2",
-    "systemjs": "^0.19.25",
-    "zone.js": "^0.6.8"
+    "systemjs": "^0.19.26",
+    "zone.js": "^0.6.10"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
