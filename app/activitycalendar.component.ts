@@ -46,6 +46,7 @@ export class ActivityCalendarComponent implements OnInit
                 })); 
             
             var calendarDiv = jQuery(this._elementRef.nativeElement).find('#calendar'); 
+            var toolTip = null; 
             
             jQuery(this._elementRef.nativeElement).find('#calendar').fullCalendar({
                 defaultDate: new Date().toISOString(),
@@ -53,9 +54,8 @@ export class ActivityCalendarComponent implements OnInit
                 eventLimit: true, // allow "more" link when too many events
                 eventRender: function(event, element) {
                     
-                    element.qtip({
-                        show: 'click',
-                        hide: 'click', 
+                    toolTip = element.qtip({
+                        
                         content: {
                             text: event.title
                         }, 
@@ -67,7 +67,7 @@ export class ActivityCalendarComponent implements OnInit
                         }
                     });
                      
-                },               
+                },   
                 events: calendarActivities
             }); 
            
