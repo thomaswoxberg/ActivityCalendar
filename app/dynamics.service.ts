@@ -1,8 +1,8 @@
-import {Injectable}     from 'angular2/core';
-import {Http, Response} from 'angular2/http';
+import {Injectable}     from '@angular/core';
+import {Http, Response} from '@angular/http';
 import {Activity}           from './activity';
 import {Observable}     from 'rxjs/Observable';
-import {Location} from 'angular2/router'; 
+import {Location} from '@angular/router'; 
 
 @Injectable()
 export class ActivityService {
