@@ -2,13 +2,12 @@ import {Injectable}     from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Activity}           from './activity';
 import {Observable}     from 'rxjs/Observable';
-import {Location} from '@angular/router'; 
 
 @Injectable()
 export class ActivityService {
  
     constructor (private http: Http ) {
-        var test = document.location.host; 
+      
     }
     private _dynamicsUrl = 'http://oakspringcrm:5555/oakspring/api/data/v8.0/';  // URL to dynamics
  
@@ -22,7 +21,7 @@ export class ActivityService {
             _xhr.withCredentials = true;
             return _xhr;
         };
-        
+         
         if(types !== undefined && types.length > 0) {
             types.forEach((element, i) => {
                 if(i == 0)

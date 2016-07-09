@@ -3,7 +3,7 @@ import {ActivityService} from './dynamics.service'
 import {Activity} from './Activity'
 import {CalendarActivity} from './CalendarActivity'
 import {HTTP_PROVIDERS} from '@angular/http';
-import {OnActivate, RouteSegment, RouteTree} from '@angular/router';
+import {Router} from '@angular/router';
 
 declare var jQuery: any;
 
@@ -12,21 +12,33 @@ declare var jQuery: any;
     styleUrls: ['./app/activitycalendar.component.css'],
     providers: [HTTP_PROVIDERS, ActivityService]
 })
-export class ActivityCalendarComponent implements OnInit, OnActivate {
+export class ActivityCalendarComponent implements OnInit {
     constructor(private _activityService: ActivityService,
-        @Inject(ElementRef) private _elementRef: ElementRef) { }
+        @Inject(ElementRef) private _elementRef: ElementRef, 
+        private router: Router) { }
 
-    routerOnActivate(curr: RouteSegment, prev?: RouteSegment,
-        currTree?: RouteTree, prevTree?: RouteTree): void {
-        let id = curr.getParam('id');
-    }
+   
     activities: Activity[];
-
     currentDate: Date;
+    accountId: string; 
 
 
     ngOnInit() {
-        this.getActivities();
+
+this.router
+      .routerState
+      .queryParams
+      .subscribe(params => {
+        if(params["id"] === undefined || params["id"] === "") {
+            throw "No account id is present, aborting.";           
+        }
+
+        this.accountId = params["id"]; 
+
+        
+      });
+
+        this.getActivities();        
     }
 
     getActivities() {

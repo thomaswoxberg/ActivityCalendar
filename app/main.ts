@@ -5,4 +5,4 @@ import { APP_ROUTER_PROVIDERS } from './app.routes';
 
 bootstrap(ActivityCalendarMainComponent,
     [APP_ROUTER_PROVIDERS])
-    .catch(err => console.error(err));;
+    .catch(err => console.error(err));

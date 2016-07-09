@@ -1,6 +1,5 @@
 import {Component, ElementRef, Inject, OnInit } from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {ActivityCalendarComponent} from './activitycalendar.component';
 
 declare var jQuery: any;
 
