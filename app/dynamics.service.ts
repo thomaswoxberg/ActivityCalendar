@@ -11,7 +11,7 @@ export class ActivityService {
     }
     private _dynamicsUrl = 'http://oakspringcrm:5555/oakspring/api/data/v8.0/';  // URL to dynamics
  
-    getActivities(types : string[]) {
+    getActivities(types : string[], accountId : string) {
         
         var requestUrl = this._dynamicsUrl + 'activitypointers';       
         
