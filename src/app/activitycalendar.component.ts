@@ -24,7 +24,7 @@ export class ActivityCalendarComponent implements OnInit
    }
    
    ngOnInit(): void {
-      this.id = this.route.queryParams['id']; 
+      this.route.queryParams.subscribe(params => this.id = params["id"]);  
       this.getActivities();       
    }
    
@@ -48,13 +48,26 @@ export class ActivityCalendarComponent implements OnInit
             var toolTip = null; 
             
             jQuery(this._elementRef.nativeElement).find('#calendar').fullCalendar({
-                height: 300,                  
+                height: 250,                  
                 defaultDate: new Date().toISOString(),
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
+                dayRender: function(date, cell) {                    
+                    cell.qtip({
+                        content: {
+                            text: "testing"
+                        }, 
+                        style: {
+                            classes: 'qtip-boostrap'
+                        }, 
+                        position: {
+                            at: 'top right'
+                        }
+                    }); 
+                }, 
                 eventRender: function(event, element) {
                     
-                    toolTip = element.qtip({
+                    element.qtip({
                         
                         content: {
                             text: event.title

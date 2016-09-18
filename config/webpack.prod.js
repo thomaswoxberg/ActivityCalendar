@@ -197,10 +197,10 @@ module.exports = webpackMerge(commonConfig, {
     //   threshold: 2 * 1024
     // })      
     
-    new CopyWebpackPlugin([{from: helpers.root('src/sebmb_fullcalendar.min.css'), 
-                            to: helpers.root('dist/WebResources/calendar_/sebmb_fullcalendar.min.css')}]
-                            [{from: helpers.root('src/sebmb_jquery.qtip.min.css'), 
-                            to: helpers.root('dist/WebResources/calendar_/sebmb_jquery.qtip.min.css')}])  
+    new CopyWebpackPlugin([{from: helpers.root('src/fullcalendar.min.css'), 
+                            to: helpers.root('dist/WebResources/calendar_/fullcalendar.min.css')}]
+                            [{from: helpers.root('src/jquery.qtip.min.css'), 
+                            to: helpers.root('dist/WebResources/calendar_/jquery.qtip.min.css')}])  
 
   ],
 
