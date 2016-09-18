@@ -1,14 +1,12 @@
-import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms'; 
-import {HttpModule} from '@angular/http'
-import { routing } from './app.routing'; 
-import { AppComponent }   from './app.component';
-import { ActivityCalendarComponent }   from './activitycalendar.component';
+import { ModuleWithProviders }  from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { ActivityCalendarComponent }      from './activitycalendar.component';
 
-@NgModule({
-  imports:      [ BrowserModule, FormsModule, routing, HttpModule ], 
-  declarations: [ AppComponent, ActivityCalendarComponent ], 
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+const appRoutes: Routes = [
+  {
+    path: '',
+    component: ActivityCalendarComponent   
+  }
+];
+
+export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

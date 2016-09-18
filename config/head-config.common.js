@@ -1,106 +1,46 @@
+/**
+ * Configuration for head elements added during the creation of index.html.
+ *
+ * All href attributes are added the publicPath (if exists) by default.
+ * You can explicitly hint to prefix a publicPath by setting a boolean value to a key that has
+ * the same name as the attribute you want to operate on, but prefix with =
+ *
+ * Example:
+ * { name: 'msapplication-TileImage', content: '/assets/icon/ms-icon-144x144.png', '=content': true },
+ * Will prefix the publicPath to content.
+ *
+ * { rel: 'apple-touch-icon', sizes: '57x57', href: '/assets/icon/apple-icon-57x57.png', '=href': false },
+ * Will not prefix the publicPath on href (href attributes are added by default
+ *
+ */
+module.exports = {
+  link: [
+    /** <link> tags for 'apple-touch-icon' (AKA Web Clips). **/
+    { rel: 'apple-touch-icon', sizes: '57x57', href: '/assets/icon/apple-icon-57x57.png' },
+    { rel: 'apple-touch-icon', sizes: '60x60', href: '/assets/icon/apple-icon-60x60.png' },
+    { rel: 'apple-touch-icon', sizes: '72x72', href: '/assets/icon/apple-icon-72x72.png' },
+    { rel: 'apple-touch-icon', sizes: '76x76', href: '/assets/icon/apple-icon-76x76.png' },
+    { rel: 'apple-touch-icon', sizes: '114x114', href: '/assets/icon/apple-icon-114x114.png' },
+    { rel: 'apple-touch-icon', sizes: '120x120', href: '/assets/icon/apple-icon-120x120.png' },
+    { rel: 'apple-touch-icon', sizes: '144x144', href: '/assets/icon/apple-icon-144x144.png' },
+    { rel: 'apple-touch-icon', sizes: '152x152', href: '/assets/icon/apple-icon-152x152.png' },
+    { rel: 'apple-touch-icon', sizes: '180x180', href: '/assets/icon/apple-icon-180x180.png' },
 
-function HtmlElementsPlugin(locations) {
-  this.locations = locations;
-}
+    /** <link> tags for android web app icons **/
+    { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/assets/icon/android-icon-192x192.png' },
 
-HtmlElementsPlugin.prototype.apply = function(compiler) {
-  var self = this;
-  compiler.plugin('compilation', function(compilation) {
-    compilation.options.htmlElements = compilation.options.htmlElements || {};
+    /** <link> tags for favicons **/
+    { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/assets/icon/favicon-32x32.png' },
+    { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/assets/icon/favicon-96x96.png' },
+    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/assets/icon/favicon-16x16.png' },
 
-    compilation.plugin('html-webpack-plugin-before-html-generation', function(htmlPluginData, callback) {
-      const locations = self.locations;
-
-      if (locations) {
-        const publicPath = htmlPluginData.assets.publicPath;
-
-        Object.getOwnPropertyNames(locations).forEach(function(loc) {
-          compilation.options.htmlElements[loc] = getHtmlElementString(locations[loc], publicPath);
-        });
-      }
-
-
-      callback(null, htmlPluginData);
-    });
-  });
-
+    /** <link> tags for a Web App Manifest **/
+    { rel: 'manifest', href: '/assets/manifest.json' }, 
+    /*{ rel: 'stylesheet', href: 'fullcalendar.min.css'}*/ 
+  ],
+  meta: [
+    { name: 'msapplication-TileColor', content: '#00bcd4' },
+    { name: 'msapplication-TileImage', content: '/assets/icon/ms-icon-144x144.png', '=content': true },
+    { name: 'theme-color', content: '#00bcd4' }
+  ]
 };
-
-const RE_ENDS_WITH_BS = /\/$/;
-
-/**
- * Create an HTML tag with attributes from a map.
- *
- * Example:
- * createTag('link', { rel: "manifest", href: "/assets/manifest.json" })
- * // <link rel="manifest" href="/assets/manifest.json">
- * @param tagName The name of the tag
- * @param attrMap A Map of attribute names (keys) and their values.
- * @param publicPath a path to add to eh start of static asset url
- * @returns {string}
- */
-function createTag(tagName, attrMap, publicPath) {
-  publicPath = publicPath || '';
-
-  // add trailing slash if we have a publicPath and it doesn't have one.
-  if (publicPath && !RE_ENDS_WITH_BS.test(publicPath)) {
-    publicPath += '/';
-  }
-
-  const attributes = Object.getOwnPropertyNames(attrMap)
-    .filter(function(name) { return name[0] !== '='; } )
-    .map(function(name) {
-      var value = attrMap[name];
-
-      if (publicPath) {
-        // check if we have explicit instruction, use it if so (e.g: =herf: false)
-        // if no instruction, use public path if it's href attribute.
-        const usePublicPath = attrMap.hasOwnProperty('=' + name) ? !!attrMap['=' + name] : name === 'href';
-
-        if (usePublicPath) {
-          // remove a starting trailing slash if the value has one so we wont have //
-          value = publicPath + (value[0] === '/' ? value.substr(1) : value);
-        }
-      }
-
-      return name + '="' + value + '"';
-    });
-
-  return '<' + tagName + ' ' + attributes.join(' ') + '>';
-}
-
-/**
- * Returns a string representing all html elements defined in a data source.
- *
- * Example:
- *
- *    const ds = {
- *      link: [
- *        { rel: "apple-touch-icon", sizes: "57x57", href: "/assets/icon/apple-icon-57x57.png" }
- *      ],
- *      meta: [
- *        { name: "msapplication-TileColor", content: "#00bcd4" }
- *      ]
- *    }
- *
- * getHeadTags(ds);
- * // "<link rel="apple-touch-icon" sizes="57x57" href="/assets/icon/apple-icon-57x57.png">"
- *    "<meta name="msapplication-TileColor" content="#00bcd4">"
- *
- * @returns {string}
- */
-function getHtmlElementString(dataSource, publicPath) {
-  return Object.getOwnPropertyNames(dataSource)
-    .map(function(name) {
-      if (Array.isArray(dataSource[name])) {
-        return dataSource[name].map(function(attrs) { return createTag(name, attrs, publicPath); } );
-      } else {
-        return [ createTag(name, dataSource[name], publicPath) ];
-      }
-    })
-    .reduce(function(arr, curr) {
-      return arr.concat(curr);
-    }, [])
-    .join('\n\t');
-}
-module.exports = HtmlElementsPlugin;
