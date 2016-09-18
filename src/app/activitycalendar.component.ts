@@ -48,7 +48,7 @@ export class ActivityCalendarComponent implements OnInit
             var toolTip = null; 
             
             jQuery(this._elementRef.nativeElement).find('#calendar').fullCalendar({
-                aspectRatio: 1.0,                  
+                height: 300,                  
                 defaultDate: new Date().toISOString(),
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
