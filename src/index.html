@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+
+  <meta name="description" content="<%= webpackConfig.metadata.title %>">       
+
+  <% if (webpackConfig.htmlElements.headTags) { %>
+  <!-- Configured Head Tags  -->
+  <%= webpackConfig.htmlElements.headTags %>
+  <% } %>
+
+  <!-- base url -->
+  <% if(webpackConfig.metadata.ENV == 'production') { %>
+    <link rel="stylesheet" href="WebResources/calendar_/sebmb_fullcalendar.min.css">
+    <link rel="stylesheet" href="WebResources/calendar_/sebmb_jquery.qtip.min.css">
+  <% } %>
+  
+  <% if(webpackConfig.metadata.ENV == 'development') { %>
+    <link rel="stylesheet" href="sebmb_fullcalendar.min.css">
+    <link rel="stylesheet" href="sebmb_jquery.qtip.min.css">
+  <% } %>
+  
+  <base href="<%= webpackConfig.metadata.baseUrl %>">
+  
+
+</head>
+
+<body>
+
+  <app>
+    Loading...
+  </app>
+  
+  <% if (webpackConfig.metadata.isDevServer && webpackConfig.metadata.HMR !== true) { %>
+  <!-- Webpack Dev Server reload -->
+  <script src="/webpack-dev-server.js"></script>
+  <% } %>
+
+
+</body>
+</html>

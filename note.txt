@@ -1,4 +1,0 @@
-I had to apply a workaround in node_modules\angular2\bundles\angular2-polyfills.js in the method zoneAwareRemoveEventListener, changed the line 
-var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, false); 
-to 
-var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, true);
